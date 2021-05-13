@@ -46,4 +46,14 @@ class TodoTableViewController: UITableViewController {
         cell.update(item: item)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        list[indexPath.row] = {
+            var item = list[indexPath.row]
+            item.isCompleted = !item.isCompleted
+            return item
+        }()
+
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
 }
