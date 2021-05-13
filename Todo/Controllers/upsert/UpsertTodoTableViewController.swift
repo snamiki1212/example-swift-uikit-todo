@@ -9,9 +9,13 @@ import UIKit
 
 class UpsertTodoTableViewController: UITableViewController {
 
+    var todo: Todo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("UPSERT TODO TABLE VIEW Controller")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(doDismiss))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
     }
     
     var delegation: UpsertTodoTableViewControllerDelegation?
@@ -39,6 +43,15 @@ class UpsertTodoTableViewController: UITableViewController {
         default:
             return cell
         }
+    }
+    
+    @objc private func doDismiss(){
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func save(){
+        print("SAVE")
+        doDismiss()
     }
 
 }

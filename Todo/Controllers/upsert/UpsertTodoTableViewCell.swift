@@ -16,9 +16,10 @@ class UpsertTodoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         print("UPSERT TODO TABLE VIEW CELL")
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        // Layout
         field.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(field)
-        
         field.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         field.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         field.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
