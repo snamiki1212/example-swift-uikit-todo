@@ -23,15 +23,12 @@ class TodoTableViewController: UITableViewController {
 //        "Low",
 //    ]
     
-    var deleteButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem()
-        item.title = "Delete"
-        item.isEnabled = false
-        return item
-    }()
-    
     @objc func gotoUpsertPage(){
         print("GO TO UPSERT PAGE")
+    }
+    
+    @objc func doDelete(){
+        print("DO DELETE")
     }
     
     override func viewDidLoad() {
@@ -44,10 +41,13 @@ class TodoTableViewController: UITableViewController {
         
         // Nav
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
+        let deleteButtonItem: UIBarButtonItem = {
+            let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(doDelete))
+            item.isEnabled = false
+            return item
+        }()
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
         navigationItem.leftBarButtonItem = editButtonItem
-
-        
     }
 
     // MARK: - Table view data source
