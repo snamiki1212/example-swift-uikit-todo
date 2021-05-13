@@ -75,6 +75,12 @@ class TodoTableViewController: UITableViewController {
         updateDeleteButtonItemEnable()
     }
     
+    // MARK: - Move row position
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let moved = list.remove(at: sourceIndexPath.row)
+        list.insert(moved, at: destinationIndexPath.row)
+    }
+    
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return 40
 //    }
