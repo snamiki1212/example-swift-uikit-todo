@@ -29,15 +29,15 @@ class TodoTableViewController: UITableViewController {
     
     @objc func deleteSelectedRows(){
         print("DO DELETE")
-        guard let selectedRows = tableView.indexPathsForSelectedRows else { return }
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         // NOTE: sort desc because of becoming removable
-        let sortedRows = selectedRows.sorted { item1, item2 in
+        let sortedIndexPaths = selectedIndexPaths.sorted { item1, item2 in
             item1.section != item2.section ? item1.section > item2.section : item1.row > item2.row
         }
 
-        for selectedRow in sortedRows {
-            deleteItem(indexPath: IndexPath(row: selectedRow.row, section: selectedRow.section))
+        for indexPath in sortedIndexPaths {
+            deleteItem(indexPath: IndexPath(row: indexPath.row, section: indexPath.section))
         }
     }
     
