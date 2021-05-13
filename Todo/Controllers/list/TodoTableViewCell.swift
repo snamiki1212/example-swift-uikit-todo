@@ -26,15 +26,17 @@ class TodoTableViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(stack)
-        stack.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
         
         stack.axis = .horizontal
         stack.alignment = .fill
         stack.distribution = .fill
         stack.backgroundColor = .red
+        
+        
         print("THIS IS INIT")
         
     }
