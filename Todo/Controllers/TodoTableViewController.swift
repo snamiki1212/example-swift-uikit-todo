@@ -10,11 +10,11 @@ import UIKit
 class TodoTableViewController: UITableViewController {
     private let cellId = "TodoCell"
     var list = [
-        Todo(title: "buy a milk"),
-        Todo(title: "buy a milk"),
-        Todo(title: "buy a milk"),
-        Todo(title: "buy a milk"),
-        Todo(title: "buy a milk"),
+        Todo(title: "buy a milk1"),
+        Todo(title: "buy a milk2"),
+        Todo(title: "buy a milk3"),
+        Todo(title: "buy a milk4"),
+        Todo(title: "buy a milk5"),
     ]
     
 //    var sections = [
@@ -27,8 +27,18 @@ class TodoTableViewController: UITableViewController {
         print("GO TO UPSERT PAGE")
     }
     
-    @objc func doDelete(){
+    @objc func deleteSelectedRows(){
         print("DO DELETE")
+        guard let selectedRows = tableView.indexPathsForSelectedRows else { return }
+        
+        // NOTE: sort desc because of becoming removable
+        let sortedRows = selectedRows.sorted { item1, item2 in
+            item1.section != item2.section ? item1.section > item2.section : item1.row > item2.row
+        }
+
+        for selectedRow in sortedRows {
+            deleteItem(indexPath: IndexPath(row: selectedRow.row, section: selectedRow.section))
+        }
     }
     
     override func viewDidLoad() {
@@ -42,8 +52,8 @@ class TodoTableViewController: UITableViewController {
         // Nav
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
         let deleteButtonItem: UIBarButtonItem = {
-            let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(doDelete))
-            item.isEnabled = false
+            let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
+//            item.isEnabled = false
             return item
         }()
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
@@ -79,12 +89,20 @@ class TodoTableViewController: UITableViewController {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    // MARK: - EDIT mode
+    // MARK: - Delete to swipe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("OK")
+        deleteItem(indexPath: indexPath)
     }
+    
+    
+    // MARK: -
+    private func deleteItem(indexPath: IndexPath) {
+        list.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
 
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
 }
