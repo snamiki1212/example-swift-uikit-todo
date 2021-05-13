@@ -57,6 +57,7 @@ class TodoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodoTableViewCell
         cell.showsReorderControl = true
+        cell.accessoryType = .detailDisclosureButton
         let item = list[indexPath.row]
         cell.update(item: item)
         return cell
@@ -71,6 +72,19 @@ class TodoTableViewController: UITableViewController {
             return item
         }()
         tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    // MARK: - Goto Upsert page to update
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print("ACCESSORY BUTTON TAPPED", indexPath.row)
+        let item = list[indexPath.row]
+        
+        // TODO: functionrize
+        let vc = UpsertTodoTableViewController()
+        vc.delegation = self
+        vc.todo = item
+        let uiNavController = UINavigationController(rootViewController: vc)
+        present(uiNavController, animated: true, completion: nil)
     }
     
     // MARK: - Delete to swipe

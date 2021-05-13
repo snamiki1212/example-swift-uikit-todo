@@ -38,7 +38,9 @@ class UpsertTodoTableViewController: UITableViewController {
         
         switch indexPath {
         case [0, 0]:
-            cell.field.text = "THIS IS EDITABLE"
+            if let title = todo?.title {
+                cell.field.text = title
+            }
             return cell
         default:
             return cell
