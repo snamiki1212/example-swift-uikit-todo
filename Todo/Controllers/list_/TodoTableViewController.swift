@@ -34,6 +34,8 @@ class TodoTableViewController: UITableViewController {
         
         // Nav
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
+        
+        // TODO: try lazy keyword
         let deleteButtonItem: UIBarButtonItem = {
             let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
     //        item.isEnabled = false
@@ -87,7 +89,10 @@ class TodoTableViewController: UITableViewController {
     }
 
     @objc private func gotoUpsertPage(){
-        print("GO TO UPSERT PAGE")
+        let vc = UpsertTodoTableViewController()
+        vc.delegation = self
+        let uiNavController = UINavigationController(rootViewController: vc)
+        present(uiNavController, animated: true, completion: nil)
     }
     
     @objc private func deleteSelectedRows(){
@@ -106,5 +111,15 @@ class TodoTableViewController: UITableViewController {
     private func deleteItem(indexPath: IndexPath) {
         list.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+}
+
+extension TodoTableViewController: UpsertTodoTableViewControllerDelegation {
+    func update(_ todo: Todo) {
+        print("UPDATE")
+    }
+    
+    func insert(_ todo: Todo) {
+        print("INSERT")
     }
 }

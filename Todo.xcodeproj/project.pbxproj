@@ -10,6 +10,7 @@
 		24497CC4264CD9C900674686 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24497CC2264CD9C900674686 /* TodoTableViewCell.swift */; };
 		24497CC5264CD9C900674686 /* TodoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24497CC3264CD9C900674686 /* TodoTableViewController.swift */; };
 		24497CC8264CD9D300674686 /* UpsertTodoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24497CC7264CD9D300674686 /* UpsertTodoTableViewController.swift */; };
+		24497CCA264CDA6C00674686 /* UpsertTodoTableViewControllerDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24497CC9264CDA6C00674686 /* UpsertTodoTableViewControllerDelegation.swift */; };
 		244F2289264C885F0059A0BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F2288264C885F0059A0BD /* AppDelegate.swift */; };
 		244F228B264C885F0059A0BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F228A264C885F0059A0BD /* SceneDelegate.swift */; };
 		244F228D264C885F0059A0BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F228C264C885F0059A0BD /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 		24497CC2264CD9C900674686 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoTableViewCell.swift; path = Todo/Controllers/list_/TodoTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		24497CC3264CD9C900674686 /* TodoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoTableViewController.swift; path = Todo/Controllers/list_/TodoTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		24497CC7264CD9D300674686 /* UpsertTodoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpsertTodoTableViewController.swift; path = Todo/Controllers/upsert_/UpsertTodoTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		24497CC9264CDA6C00674686 /* UpsertTodoTableViewControllerDelegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertTodoTableViewControllerDelegation.swift; sourceTree = "<group>"; };
 		244F2285264C885F0059A0BD /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		244F2288264C885F0059A0BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		244F228A264C885F0059A0BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				24497CC7264CD9D300674686 /* UpsertTodoTableViewController.swift */,
+				24497CC9264CDA6C00674686 /* UpsertTodoTableViewControllerDelegation.swift */,
 			);
 			path = upsert;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				24497CC5264CD9C900674686 /* TodoTableViewController.swift in Sources */,
 				244F2289264C885F0059A0BD /* AppDelegate.swift in Sources */,
 				244F228B264C885F0059A0BD /* SceneDelegate.swift in Sources */,
+				24497CCA264CDA6C00674686 /* UpsertTodoTableViewControllerDelegation.swift in Sources */,
 				24497CC4264CD9C900674686 /* TodoTableViewCell.swift in Sources */,
 				24497CC8264CD9D300674686 /* UpsertTodoTableViewController.swift in Sources */,
 				244F22A1264C8A2B0059A0BD /* Todo.swift in Sources */,

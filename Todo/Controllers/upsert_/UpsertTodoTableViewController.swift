@@ -12,6 +12,8 @@ class UpsertTodoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    var delegation: UpsertTodoTableViewControllerDelegation?
 
     // MARK: - Table view data source
 
@@ -37,3 +39,4 @@ class UpsertTodoTableViewController: UITableViewController {
     }
 
 }
+
