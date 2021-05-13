@@ -35,7 +35,6 @@ class TodoTableViewController: UITableViewController {
         // Nav
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
         
-        // TODO: try lazy keyword
         let deleteButtonItem: UIBarButtonItem = {
             let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
     //        item.isEnabled = false
