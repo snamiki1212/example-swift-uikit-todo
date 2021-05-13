@@ -24,7 +24,6 @@ class UpsertTodoTableViewCell: UITableViewCell {
         field.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         field.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         field.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        
     }
     
     required init?(coder: NSCoder) {

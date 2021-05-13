@@ -133,6 +133,8 @@ extension TodoTableViewController: UpsertTodoTableViewControllerDelegation {
     }
     
     func insert(_ todo: Todo) {
-        print("INSERT")
+        list.append(todo)
+        let indexPath = IndexPath(row: list.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }

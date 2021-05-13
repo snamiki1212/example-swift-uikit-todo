@@ -32,10 +32,10 @@ class UpsertTodoTableViewController: UITableViewController {
         return 1
     }
     
+    var cell = UpsertTodoTableViewCell()
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UpsertTodoTableViewCell {
 
-        let cell = UpsertTodoTableViewCell()
-        
         switch indexPath {
         case [0, 0]:
             if let title = todo?.title {
@@ -53,6 +53,11 @@ class UpsertTodoTableViewController: UITableViewController {
     
     @objc private func save(){
         print("SAVE")
+        let newTodo = Todo(title: cell.field.text ?? "")
+        let isUpdating = self.todo != nil
+        isUpdating
+            ? delegation!.update(newTodo)
+            : delegation!.insert(newTodo)
         doDismiss()
     }
 
