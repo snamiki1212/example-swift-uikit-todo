@@ -76,7 +76,7 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("ACCESSORY BUTTON TAPPED", indexPath.row)
+        print("ACCESSORY BUTTON TAPPED", indexPath) // TODO: 
         let item = list[indexPath.row]
         
         // TODO: functionrize
