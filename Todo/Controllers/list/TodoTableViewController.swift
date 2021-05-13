@@ -9,6 +9,7 @@ import UIKit
 
 class TodoTableViewController: UITableViewController {
     private let cellId = "TodoCell"
+    var selectedIndexPath: IndexPath?
     var list = [
         Todo(title: "buy a milk1"),
         Todo(title: "buy a milk2"),
@@ -76,7 +77,8 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("ACCESSORY BUTTON TAPPED", indexPath) // TODO: 
+        print("ACCESSORY BUTTON TAPPED", indexPath) // TODO: why not working??? looks out of place about index and row.
+        selectedIndexPath = indexPath
         let item = list[indexPath.row]
         
         // TODO: functionrize
@@ -129,7 +131,11 @@ class TodoTableViewController: UITableViewController {
 
 extension TodoTableViewController: UpsertTodoTableViewControllerDelegation {
     func update(_ todo: Todo) {
-        print("UPDATE")
+        print("UPDATE", selectedIndexPath)
+        guard let selectedIndexPath = selectedIndexPath else { return }
+        list[selectedIndexPath.row] = todo
+        tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+        self.selectedIndexPath = nil
     }
     
     func insert(_ todo: Todo) {
