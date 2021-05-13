@@ -28,7 +28,6 @@ class TodoTableViewController: UITableViewController {
     }
     
     @objc func deleteSelectedRows(){
-        print("DO DELETE")
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         // NOTE: sort desc because of becoming removable
@@ -40,6 +39,9 @@ class TodoTableViewController: UITableViewController {
             deleteItem(indexPath: IndexPath(row: indexPath.row, section: indexPath.section))
         }
     }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,7 @@ class TodoTableViewController: UITableViewController {
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
         let deleteButtonItem: UIBarButtonItem = {
             let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
-//            item.isEnabled = false
+    //        item.isEnabled = false
             return item
         }()
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
@@ -95,14 +97,17 @@ class TodoTableViewController: UITableViewController {
     }
     
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+//        TODO:
+//        if !editing {
+//            deleteButtonItem.isEditable = false
+//        }
+        super.setEditing(editing, animated: animated)
+    }
+    
     // MARK: -
     private func deleteItem(indexPath: IndexPath) {
         list.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
-    
-
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
 }
