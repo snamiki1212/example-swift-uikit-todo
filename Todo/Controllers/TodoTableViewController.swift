@@ -23,12 +23,31 @@ class TodoTableViewController: UITableViewController {
 //        "Low",
 //    ]
     
+    var deleteButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem()
+        item.title = "Delete"
+        item.isEnabled = false
+        return item
+    }()
+    
+    @objc func gotoUpsertPage(){
+        print("GO TO UPSERT PAGE")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        
+        // table
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.allowsSelectionDuringEditing = true
+        tableView.allowsMultipleSelectionDuringEditing = true
+        
+        // Nav
+        let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
+        navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
         navigationItem.leftBarButtonItem = editButtonItem
+
+        
     }
 
     // MARK: - Table view data source
@@ -50,6 +69,7 @@ class TodoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard !tableView.isEditing else { return }
         list[indexPath.row] = {
             var item = list[indexPath.row]
             item.isCompleted = !item.isCompleted
@@ -59,13 +79,12 @@ class TodoTableViewController: UITableViewController {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-//    // MARK: - EDIT mode
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//
-//    }
-//
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
-    
+    // MARK: - EDIT mode
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print("OK")
+    }
+
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
 }
