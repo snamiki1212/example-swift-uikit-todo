@@ -27,6 +27,8 @@ class TodoTableViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = .blue
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.allowsSelectionDuringEditing = true
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 
     // MARK: - Table view data source
@@ -56,4 +58,14 @@ class TodoTableViewController: UITableViewController {
 
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
+    
+//    // MARK: - EDIT mode
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//    }
+//
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
+    
 }
