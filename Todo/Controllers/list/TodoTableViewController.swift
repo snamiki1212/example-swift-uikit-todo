@@ -23,26 +23,7 @@ class TodoTableViewController: UITableViewController {
 //        "Low",
 //    ]
     
-    @objc func gotoUpsertPage(){
-        print("GO TO UPSERT PAGE")
-    }
-    
-    @objc func deleteSelectedRows(){
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
-        
-        // NOTE: sort desc because of becoming removable
-        let sortedIndexPaths = selectedIndexPaths.sorted { item1, item2 in
-            item1.section != item2.section ? item1.section > item2.section : item1.row > item2.row
-        }
 
-        for indexPath in sortedIndexPaths {
-            deleteItem(indexPath: IndexPath(row: indexPath.row, section: indexPath.section))
-        }
-    }
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
@@ -80,6 +61,7 @@ class TodoTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK: - Toggle isChecked
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard !tableView.isEditing else { return }
         list[indexPath.row] = {
@@ -87,7 +69,6 @@ class TodoTableViewController: UITableViewController {
             item.isCompleted = !item.isCompleted
             return item
         }()
-
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
@@ -96,7 +77,7 @@ class TodoTableViewController: UITableViewController {
         deleteItem(indexPath: indexPath)
     }
     
-    
+    // MARK: - Disable delete button after editing
     override func setEditing(_ editing: Bool, animated: Bool) {
 //        TODO:
 //        if !editing {
@@ -104,8 +85,24 @@ class TodoTableViewController: UITableViewController {
 //        }
         super.setEditing(editing, animated: animated)
     }
+
+    @objc private func gotoUpsertPage(){
+        print("GO TO UPSERT PAGE")
+    }
     
-    // MARK: -
+    @objc private func deleteSelectedRows(){
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
+        
+        // NOTE: sort desc because of becoming removable
+        let sortedIndexPaths = selectedIndexPaths.sorted { item1, item2 in
+            item1.section != item2.section ? item1.section > item2.section : item1.row > item2.row
+        }
+
+        for indexPath in sortedIndexPaths {
+            deleteItem(indexPath: IndexPath(row: indexPath.row, section: indexPath.section))
+        }
+    }
+    
     private func deleteItem(indexPath: IndexPath) {
         list.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
