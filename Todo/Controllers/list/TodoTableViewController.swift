@@ -25,6 +25,7 @@ class TodoTableViewController: UITableViewController {
 //    ]
     
     var deleteButtonItem = UIBarButtonItem()
+    var insertButtonItem = UIBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,9 @@ class TodoTableViewController: UITableViewController {
         tableView.allowsMultipleSelectionDuringEditing = true
         
         // Nav
-        let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
-        
-        // UI part
+        insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
         deleteButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
-//        deleteButtonItem.isEnabled = false
+        deleteButtonItem.isEnabled = false
         
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
         navigationItem.leftBarButtonItem = editButtonItem
@@ -65,16 +64,36 @@ class TodoTableViewController: UITableViewController {
         return cell
     }
     
-    // MARK: - Toggle isChecked
+    // MARK: - Toggle and select when to editingMode
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("TOGGLE", indexPath)
-        guard !tableView.isEditing else { return }
-        list[indexPath.row] = {
-            var item = list[indexPath.row]
-            item.isCompleted = !item.isCompleted
-            return item
+        print("THIS IS SELECT")
+        if tableView.isEditing {
+            updateDeleteButtonItemEnable()
+        } else {
+            // Toggle isChecked
+            list[indexPath.row] = {
+                var item = list[indexPath.row]
+                item.isCompleted = !item.isCompleted
+                return item
+            }()
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    private func updateDeleteButtonItemEnable(){
+        let canDelete: Bool = {
+            if let _ = tableView.indexPathsForSelectedRows {
+                return true
+            } else {
+                return false
+            }
         }()
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        deleteButtonItem.isEnabled = canDelete
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard tableView.isEditing else { return }
+        updateDeleteButtonItemEnable()
     }
     
     
@@ -84,7 +103,6 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("ACCESSORY BUTTON TAPPED", indexPath) // TODO: why not working??? looks out of place about index and row.
         selectedIndexPath = indexPath
         let item = list[indexPath.row]
         
@@ -96,6 +114,8 @@ class TodoTableViewController: UITableViewController {
         present(uiNavController, animated: true, completion: nil)
     }
     
+    
+    
     // MARK: - Delete to swipe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         deleteItem(indexPath: indexPath)
@@ -103,10 +123,9 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Disable delete button after editing
     override func setEditing(_ editing: Bool, animated: Bool) {
-//        TODO:
-//        if !editing {
-//            deleteButtonItem.isEditable = false
-//        }
+        if !editing {
+            deleteButtonItem.isEnabled = false
+        }
         super.setEditing(editing, animated: animated)
     }
 
@@ -128,6 +147,8 @@ class TodoTableViewController: UITableViewController {
         for indexPath in sortedIndexPaths {
             deleteItem(indexPath: IndexPath(row: indexPath.row, section: indexPath.section))
         }
+        
+        updateDeleteButtonItemEnable()
     }
     
     private func deleteItem(indexPath: IndexPath) {
@@ -138,7 +159,6 @@ class TodoTableViewController: UITableViewController {
 
 extension TodoTableViewController: UpsertTodoTableViewControllerDelegation {
     func update(_ todo: Todo) {
-        print("UPDATE", selectedIndexPath)
         guard let selectedIndexPath = selectedIndexPath else { return }
         list[selectedIndexPath.row] = todo
         tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
