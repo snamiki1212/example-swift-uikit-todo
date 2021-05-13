@@ -1,6 +1,6 @@
 # OVREVIEW
 
-Todo App with Swift / UIKit.
+Todo App with Swift / UIKit programmatically.
 
 ## LICENSE
 
