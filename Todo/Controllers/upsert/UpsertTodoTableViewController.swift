@@ -11,6 +11,7 @@ class UpsertTodoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("UPSERT TODO TABLE VIEW Controller")
     }
     
     var delegation: UpsertTodoTableViewControllerDelegation?
@@ -19,7 +20,7 @@ class UpsertTodoTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,11 +28,13 @@ class UpsertTodoTableViewController: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = .red
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UpsertTodoTableViewCell {
+
+        let cell = UpsertTodoTableViewCell()
+        
         switch indexPath {
         case [0, 0]:
+            cell.field.text = "THIS IS EDITABLE"
             return cell
         default:
             return cell
