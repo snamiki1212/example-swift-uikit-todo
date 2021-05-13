@@ -65,39 +65,15 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Toggle and select when to editingMode
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("THIS IS SELECT")
-        if tableView.isEditing {
-            updateDeleteButtonItemEnable()
-        } else {
-            toggleRow(indexPath: indexPath)
-        }
-    }
-    
-    private func toggleRow(indexPath: IndexPath){
-        list[indexPath.row] = {
-            var item = list[indexPath.row]
-            item.isCompleted = !item.isCompleted
-            return item
-        }()
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-    }
-    
-    private func updateDeleteButtonItemEnable(){
-        let canDelete: Bool = {
-            if let _ = tableView.indexPathsForSelectedRows {
-                return true
-            } else {
-                return false
-            }
-        }()
-        deleteButtonItem.isEnabled = canDelete
+        tableView.isEditing
+            ? updateDeleteButtonItemEnable()
+            : toggleRow(indexPath: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard tableView.isEditing else { return }
         updateDeleteButtonItemEnable()
     }
-    
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return 40
@@ -116,8 +92,6 @@ class TodoTableViewController: UITableViewController {
         present(uiNavController, animated: true, completion: nil)
     }
     
-    
-    
     // MARK: - Delete to swipe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         deleteItem(indexPath: indexPath)
@@ -131,6 +105,7 @@ class TodoTableViewController: UITableViewController {
         super.setEditing(editing, animated: animated)
     }
 
+    // MARK: - PRIVATE FUNCITIONS
     @objc private func gotoUpsertPage(){
         let vc = UpsertTodoTableViewController()
         vc.delegation = self
@@ -156,6 +131,26 @@ class TodoTableViewController: UITableViewController {
     private func deleteItem(indexPath: IndexPath) {
         list.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func toggleRow(indexPath: IndexPath){
+        list[indexPath.row] = {
+            var item = list[indexPath.row]
+            item.isCompleted = !item.isCompleted
+            return item
+        }()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func updateDeleteButtonItemEnable(){
+        let canDelete: Bool = {
+            if let _ = tableView.indexPathsForSelectedRows {
+                return true
+            } else {
+                return false
+            }
+        }()
+        deleteButtonItem.isEnabled = canDelete
     }
 }
 
