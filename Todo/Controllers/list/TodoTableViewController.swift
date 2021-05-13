@@ -24,6 +24,7 @@ class TodoTableViewController: UITableViewController {
 //        "Low",
 //    ]
     
+    var deleteButtonItem = UIBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +37,13 @@ class TodoTableViewController: UITableViewController {
         // Nav
         let insertButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(gotoUpsertPage))
         
-        let deleteButtonItem: UIBarButtonItem = {
-            let item = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
-    //        item.isEnabled = false
-            return item
-        }()
+        // UI part
+        deleteButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteSelectedRows))
+//        deleteButtonItem.isEnabled = false
+        
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
         navigationItem.leftBarButtonItem = editButtonItem
+    
     }
 
     // MARK: - Table view data source
@@ -66,6 +67,7 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Toggle isChecked
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("TOGGLE", indexPath)
         guard !tableView.isEditing else { return }
         list[indexPath.row] = {
             var item = list[indexPath.row]
@@ -74,6 +76,11 @@ class TodoTableViewController: UITableViewController {
         }()
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
+    
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 40
+//    }
     
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
