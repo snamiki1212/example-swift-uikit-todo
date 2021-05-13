@@ -42,10 +42,8 @@ class TodoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodoTableViewCell
         cell.showsReorderControl = true
-        
         let item = list[indexPath.row]
-        cell.textLabel?.text = item.title
-//        cell.update(item: item)
+        cell.update(item: item)
         return cell
     }
 }
