@@ -42,7 +42,6 @@ class TodoTableViewController: UITableViewController {
         
         navigationItem.rightBarButtonItems = [insertButtonItem, deleteButtonItem]
         navigationItem.leftBarButtonItem = editButtonItem
-    
     }
 
     // MARK: - Table view data source
@@ -70,14 +69,17 @@ class TodoTableViewController: UITableViewController {
         if tableView.isEditing {
             updateDeleteButtonItemEnable()
         } else {
-            // Toggle isChecked
-            list[indexPath.row] = {
-                var item = list[indexPath.row]
-                item.isCompleted = !item.isCompleted
-                return item
-            }()
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            toggleRow(indexPath: indexPath)
         }
+    }
+    
+    private func toggleRow(indexPath: IndexPath){
+        list[indexPath.row] = {
+            var item = list[indexPath.row]
+            item.isCompleted = !item.isCompleted
+            return item
+        }()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     private func updateDeleteButtonItemEnable(){
