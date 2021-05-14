@@ -95,7 +95,8 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Move row position
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let moved = list[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        var moved = list[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        moved.priority = destinationIndexPath.section
         list[destinationIndexPath.section].insert(moved, at: destinationIndexPath.row)
     }
     

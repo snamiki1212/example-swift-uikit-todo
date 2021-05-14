@@ -13,7 +13,8 @@ class UpsertTodoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("UPSERT TODO TABLE VIEW Controller")
+
+        // Nav
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(doDismiss))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
     }
@@ -52,7 +53,6 @@ class UpsertTodoTableViewController: UITableViewController {
     }
     
     @objc private func save(){
-        print("SAVE")
         let newTodo = Todo(title: cell.field.text ?? "")
         let isUpdating = self.todo != nil
         isUpdating

@@ -14,7 +14,6 @@ class UpsertTodoTableViewCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        print("UPSERT TODO TABLE VIEW CELL")
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // Layout
