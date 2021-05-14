@@ -10,7 +10,7 @@ import UIKit
 class UpsertTodoTableViewController: UITableViewController {
 
     var todo: Todo?
-    var titleCell = UpsertTodoTableViewCell()
+    var titleCell = UpsertTodoTableViewTitleCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class UpsertTodoTableViewController: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UpsertTodoTableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UpsertTodoTableViewTitleCell {
 
         switch indexPath {
         case [0, 0]:

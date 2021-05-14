@@ -6,9 +6,8 @@
 //
 
 import UIKit
-
-// TODO: RENAME title 
-class UpsertTodoTableViewCell: UITableViewCell {
+ 
+class UpsertTodoTableViewTitleCell: UITableViewCell {
     public var field : UITextField = {
         let field = UITextField()
         field.borderStyle = .roundedRect
