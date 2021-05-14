@@ -10,6 +10,7 @@ import UIKit
 class UpsertTodoTableViewController: UITableViewController {
 
     var todo: Todo?
+    var titleCell = UpsertTodoTableViewCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,9 @@ class UpsertTodoTableViewController: UITableViewController {
         // Nav
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(doDismiss))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = true
+        tableView.separatorStyle = .none
     }
     
     var delegation: UpsertTodoTableViewControllerDelegation?
@@ -33,18 +37,25 @@ class UpsertTodoTableViewController: UITableViewController {
         return 1
     }
     
-    var cell = UpsertTodoTableViewCell()
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UpsertTodoTableViewCell {
 
         switch indexPath {
         case [0, 0]:
             if let title = todo?.title {
-                cell.field.text = title
+                titleCell.field.text = title
             }
-            return cell
+            return titleCell
         default:
-            return cell
+            fatalError("Unexpeced Error")
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Title"
+        default:
+            fatalError("Unexpeced Error")
         }
     }
     
@@ -53,7 +64,7 @@ class UpsertTodoTableViewController: UITableViewController {
     }
     
     @objc private func save(){
-        let newTodo = Todo(title: cell.field.text ?? "")
+        let newTodo = Todo(title: titleCell.field.text ?? "")
         let isUpdating = self.todo != nil
         isUpdating
             ? delegation!.update(newTodo)
@@ -62,4 +73,3 @@ class UpsertTodoTableViewController: UITableViewController {
     }
 
 }
-
