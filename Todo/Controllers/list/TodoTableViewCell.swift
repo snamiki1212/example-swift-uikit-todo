@@ -11,12 +11,13 @@ class TodoTableViewCell: UITableViewCell {
 
     var titleLabel: UILabel = {
         var label = UILabel()
-        label.setContentHuggingPriority(.required, for: .horizontal)
+        
         return label
     }()
     
     var checkLabel: UILabel = {
         var label = UILabel()
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
     
