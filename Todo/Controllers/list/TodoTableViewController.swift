@@ -11,25 +11,40 @@ class TodoTableViewController: UITableViewController {
     private let cellId = "TodoCell"
     var selectedIndexPath: IndexPath?
     var list = [
-        Todo(title: "buy a milk1"),
-        Todo(title: "buy a milk2"),
-        Todo(title: "buy a milk3"),
-        Todo(title: "buy a milk4"),
-        Todo(title: "buy a milk5"),
+        [
+            Todo(title: "buy a sushi1", priority: 0),
+            Todo(title: "buy a sushi1", priority: 0),
+            Todo(title: "buy a sushi3", priority: 0),
+            Todo(title: "buy a sushi4", priority: 0),
+            Todo(title: "buy a sushi5", priority: 0),
+        ],
+        [
+            Todo(title: "buy a egg1", priority: 1),
+            Todo(title: "buy a egg2", priority: 1),
+            Todo(title: "buy a egg3", priority: 1),
+            Todo(title: "buy a egg4", priority: 1),
+            Todo(title: "buy a egg5", priority: 1),
+        ],
+        [
+            Todo(title: "buy a milk1", priority: 2),
+            Todo(title: "buy a milk2", priority: 2),
+            Todo(title: "buy a milk3", priority: 2),
+            Todo(title: "buy a milk4", priority: 2),
+            Todo(title: "buy a milk5", priority: 2),
+        ],
     ]
     
-//    var sections = [
-//        "High",
-//        "Middle",
-//        "Low",
-//    ]
+    var sections = [
+        "High",
+        "Middle",
+        "Low",
+    ]
     
     var deleteButtonItem = UIBarButtonItem()
     var insertButtonItem = UIBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
         
         // table
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: cellId)
@@ -46,21 +61,24 @@ class TodoTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-//        return sections.count
-        return 1
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return list[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TodoTableViewCell
         cell.showsReorderControl = true
         cell.accessoryType = .detailDisclosureButton
-        let item = list[indexPath.row]
+        let item = list[indexPath.section][indexPath.row]
         cell.update(item: item)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sections[section]
     }
     
     // MARK: - Toggle and select when to editingMode
@@ -77,8 +95,8 @@ class TodoTableViewController: UITableViewController {
     
     // MARK: - Move row position
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let moved = list.remove(at: sourceIndexPath.row)
-        list.insert(moved, at: destinationIndexPath.row)
+        let moved = list[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        list[destinationIndexPath.section].insert(moved, at: destinationIndexPath.row)
     }
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,7 +106,7 @@ class TodoTableViewController: UITableViewController {
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         selectedIndexPath = indexPath
-        let item = list[indexPath.row]
+        let item = list[indexPath.section][indexPath.row]
         
         // TODO: functionrize
         let vc = UpsertTodoTableViewController()
@@ -135,13 +153,13 @@ class TodoTableViewController: UITableViewController {
     }
     
     private func deleteItem(indexPath: IndexPath) {
-        list.remove(at: indexPath.row)
+        list[indexPath.section].remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     private func toggleRow(indexPath: IndexPath){
-        list[indexPath.row] = {
-            var item = list[indexPath.row]
+        list[indexPath.section][indexPath.row] = {
+            var item = list[indexPath.section][indexPath.row]
             item.isCompleted = !item.isCompleted
             return item
         }()
@@ -163,14 +181,15 @@ class TodoTableViewController: UITableViewController {
 extension TodoTableViewController: UpsertTodoTableViewControllerDelegation {
     func update(_ todo: Todo) {
         guard let selectedIndexPath = selectedIndexPath else { return }
-        list[selectedIndexPath.row] = todo
+        list[selectedIndexPath.section][selectedIndexPath.row] = todo
         tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
         self.selectedIndexPath = nil
     }
     
     func insert(_ todo: Todo) {
-        list.append(todo)
-        let indexPath = IndexPath(row: list.count - 1, section: 0)
+        let section = todo.priority
+        list[section].append(todo)
+        let indexPath = IndexPath(row: list[section].count - 1, section: section)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }

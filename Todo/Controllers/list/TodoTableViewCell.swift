@@ -33,12 +33,7 @@ class TodoTableViewCell: UITableViewCell {
         
         stack.axis = .horizontal
         stack.alignment = .fill
-        stack.distribution = .fill
-        stack.backgroundColor = .red
-        
-        
-        print("THIS IS INIT")
-        
+        stack.distribution = .fill        
     }
     
     required init?(coder: NSCoder) {
