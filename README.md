@@ -13,7 +13,7 @@ Todo App with Swift / UIKit programmatically.
 - [x] Delete item by swipe action
 - [x] Delete multi items feature
 - [x] Rearrange items by drag/drop actions
-- [ ] Categorize priority
+- [x] Categorize priority
 
 ## LICENSE
 
