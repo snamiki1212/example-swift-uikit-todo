@@ -100,10 +100,6 @@ class TodoTableViewController: UITableViewController {
         list[destinationIndexPath.section].insert(moved, at: destinationIndexPath.row)
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 40
-//    }
-    
     // MARK: - Goto Upsert page to update
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         selectedIndexPath = indexPath

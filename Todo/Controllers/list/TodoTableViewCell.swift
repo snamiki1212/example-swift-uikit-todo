@@ -11,7 +11,6 @@ class TodoTableViewCell: UITableViewCell {
 
     var titleLabel: UILabel = {
         var label = UILabel()
-        
         return label
     }()
     
@@ -49,6 +48,4 @@ class TodoTableViewCell: UITableViewCell {
         titleLabel.text = item.title
         checkLabel.text = renderCheckLabel(isCompleted: item.isCompleted)
     }
-    
-
 }
